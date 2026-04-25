@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FabLab Proposições - Sociedade Fraternidade Fab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========================================
+           CONFIGURAÇÕES GERAIS E VARIÁVEIS CSS
+        ======================================== */
+        :root {
+            /* Modo claro */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --primary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        [data-theme="dark"] {
+            /* Modo escuro */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --primary-color: #3b82f6;
+            --accent-color: #fbbf24;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* ========================================
+           HEADER E NAVEGAÇÃO FIXA
+        ======================================== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] header {
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* ========================================
+           SEÇÕES GERAIS
+        ======================================== */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* ========================================
+           HERO SECTION (INÍCIO)
+        ======================================== */
+        #inicio {
+            padding-top: 8rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+            color: white;
+            margin-bottom: -5rem;
+        }
+
+        #inicio h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        #inicio .subtitle {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg), 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* ========================================
+           CARDS E GRID
+        ======================================== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* ========================================
+           SOBRE/MISSÃO - COLUNAS
+        ======================================== */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mission-item {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* ========================================
+           FABLAB DE ESTUDOS - TIMELINE
+        ======================================== */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .timeline-step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .timeline-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        /* ========================================
+           CÉLULAS TEMÁTICAS
+        ======================================== */
+        .cells-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* ========================================
+           AGENDA
+        ======================================== */
+        .agenda-list {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .agenda-item {
+            background: var(--bg-card);
+            margin-bottom: 1.5rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .agenda-date {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+
+        .agenda-content {
+            padding: 1.5rem;
+        }
+
+        /* ========================================
+           FORMULÁRIO
+        ======================================== */
+        .form-container {
+            max-width: 600px;
+            margin: 3rem auto 0;
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           RESPONSIVO
+        ======================================== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            #inicio {
+                padding-top: 6rem;
+                padding: 6rem 1rem 3rem;
+            }
+
+            .cards-grid,
+            .mission-grid,
+            .cells-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-step,
+            .timeline-step:nth-child(even) {
+                flex-direction: column !important;
+                text-align: center;
+            }
+        }
+
+        /* ========================================
+           ANIMAÇÕES
+        ======================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <!-- ========================================
+         HEADER E NAVEGAÇÃO
+    ======================================== -->
+    <header>
+        <nav>
+            <a href="#inicio" class="logo">FabLab Proposições</a>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#fundamentos">Fundamentos</a></li>
+                <li><a href="#aplicacoes">Aplicações</a></li>
+                <li><a href="#fablab">FabLab de Estudos</a></li>
+                <li><a href="#celulas">Células Temáticas</a></li>
+                <li><a href="#agenda">Agenda</a></li>
+                <li><a href="#participar">Participar</a></li>
+            </ul>
+            <button class="theme-toggle" title="Alternar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- ========================================
+         SEÇÃO INÍCIO (HERO)
+    ======================================== -->
+    <section id="inicio" class="animate">
+        <h1>FabLab Proposições</h1>
+        <p class="subtitle">Um laboratório de proposições graduais para um mundo em crise, criado pela Sociedade Fraternidade Fab.</p>
+        <div class="hero-buttons">
+            <a href="#fundamentos" class="btn btn-primary">
+                <i class="fas fa-lightbulb"></i>
+                Entenda a abordagem Fab
+            </a>
+            <a href="#fablab" class="btn btn-secondary">
+                <i class="fas fa-rocket"></i>
+                Entre no FabLab de Estudos
+            </a>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SEÇÃO SOBRE / MISSÃO
+    ======================================== -->
+    <section id="sobre">
+        <h2>Sobre / Missão</h2>
+        <div class="mission-grid">
+            <div class="mission-item">
+                <h3><i class="fas fa-users"></i> Quem somos</h3>
+                <p>A Sociedade Fraternidade Fab nasce da intuição de que, em meio a crises sucessivas, a resposta mais responsável não é o desespero revolucionário, nem a acomodação cínica, mas um caminho de reformas graduais, prudentes e fraternas.</p>
+            </div>
+            <div class="mission-item">
+                <h3><i class="fas fa-flask"></i> O que fazemos</h3>
+                <p>O FabLab Proposições é o laboratório dessa fraternidade: um espaço de estudos, diálogo e formulação de propostas concretas para os desafios contemporâneos.</p>
+            </div>
+            <div class="mission-item">
+                <h3><i class="fas fa-balance-scale"></i> Como atuamos</h3>
+                <p>Em política e sociedade, atuamos como centro de estudos e proposições, não como partido. Nosso foco está em pensar reformas possíveis, testáveis e legalmente ancoradas.</p>
+            </div>
+            <div class="mission-item">
+                <h3><i class="fas fa-microchip"></i> Dimensão tecnológica</h3>
+                <p>Buscamos compreender como plataformas, algoritmos e sistemas de inteligência artificial mediam percepções, afetos e decisões humanas em escala global.</p>
+            </div>
+            <div class="mission-item">
+                <h3><i class="fas fa-compass"></i> Nossos princípios</h3>
+                <p>Gradualismo prudente • Fraternidade e legalidade • Pesquisa empírica e reflexão filosófica • Transparência e reputação • Abertura ao debate disciplinar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SEÇÃO FUNDAMENTOS
+    ======================================== -->
+    <section id="fundamentos">
+        <h2>Fundamentos</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h4><i class="fas fa-history"></i> Origem histórica</h4>
+                <p>Inspirados na tradição fabiana e na figura de Fábio Máximo Cunctator, adotamos a sabedoria de mudanças por etapas calculadas, evitando rupturas perigosas.</p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-gears"></i> Princípios contemporâneos</h4>
+                <p>Diagnóstico empírico • Reformas incrementais • Permeação de ideias em instituições • Revisão contínua baseada em evidências reais.</p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-handshake"></i> Por que Fraternidade Fab</h4>
+                <p>Fraternidade como base ética • Dignidade humana como norte • Legalidade como método • Prudência como estratégia • Cooperação intelectual como prática.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SEÇÃO APLICAÇÕES
+    ======================================== -->
+    <section id="aplicacoes">
+        <h2>Aplicações</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h4><i class="fas fa-heart"></i> Vida & Desenvolvimento Pessoal</h4>
+                <p>Em meio à sobrecarga informacional e crise de atenção, buscamos restaurar o foco e a resiliência interior.</p>
+                <ul>
+                    <li>Práticas diárias de atenção plena adaptadas à realidade digital</li>
+                    <li>Sistemas de hábitos graduais com revisão mensal</li>
+                    <li>Rede de accountability fraterna entre pares</li>
+                    <li>Biohacking ético e testável para neurodivergentes</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-building"></i> Negócios & Organizações</h4>
+                <p>Organizações enfrentam volatilidade extrema e perda de confiança institucional.</p>
+                <ul>
+                    <li>Governança gradual com comitês de revisão contínua</li>
+                    <li>Cultura de decisões baseadas em experimentos pequenos</li>
+                    <li>Modelos híbridos de liderança fraterna e meritocrática</li>
+                    <li>Transição ética para economia regenerativa</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-university"></i> Política & Instituições</h4>
+                <p>Crise de legitimidade das instituições democráticas e polarização extrema.</p>
+                <ul>
+                    <li>Micro-reformas constitucionais testáveis</li>
+                    <li>Deliberação cidadã estruturada em escala local</li>
+                    <li>Restaurar separação de poderes através de incentivos</li>
+                    <li>Transição gradual para sistemas mais resilientes</li>
+                    <li>Protocolos anti-populismo institucional</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-users"></i> Sociedade & Cultura</h4>
+                <p>Fragmentação cultural e crise de solidariedade em sociedades hiperconectadas.</p>
+                <ul>
+                    <li>Criação de células fraternas locais auto-geridas</li>
+                    <li>Reconstrução de capital social através de práticas compartilhadas</li>
+                    <li>Narrativas unificadoras baseadas em valores testados</li>
+                    <li>Combate gradual à desinformação comunitária</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-globe"></i> Tecnologia & Mediação Social</h4>
+                <p>Plataformas concentram poder sem responsabilidade proporcional.</p>
+                <ul>
+                    <li>Protocolos open-source de moderação comunitária</li>
+                    <li>Arquitetura de atenção restaurativa em apps</li>
+                    <li>Regulação gradual por capacidade técnica verificada</li>
+                    <li>Fabricação distribuída de infraestrutura digital</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SEÇÃO FABLAB DE ESTUDOS
+    ======================================== -->
+    <section id="fablab">
+        <h2>FabLab de Estudos</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem;">
+            Sistema de estudos gradual em três níveis, com progressão estruturada e certificação interna.
+        </p>
+        <div class="timeline">
+            <div class="timeline-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Nível 1 - Fundamentos</h4>
+                    <p>História do gradualismo político • Teoria dos jogos aplicados a instituições • Evolução das instituições modernas • Filosofia da prudência estratégica.</p>
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Nível 2 - Problemas Contemporâneos</h4>
+                    <p>Geopolítica multipolar • Tecnologia e plataformas digitais • Crise de sentido e narrativas • Economia política da atenção • Mutação institucional.</p>
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Nível 3 - Proposições & Laboratórios</h4>
+                    <p>Design de micro-reformas testáveis • Construção de cenários graduais • Elaboração de manifestos e policy briefs • Simulações institucionais • Projetos pilotos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SEÇÃO CÉLULAS TEMÁTICAS
+    ======================================== -->
+    <section id="celulas">
+        <h2>Células Temáticas</h2>
+        <div class="cells-grid">
+            <div class="card">
+                <h4><i class="fas fa-globe-americas"></i> Geopolítica e Ordem Internacional</h4>
+                <p><strong>Linhas atuais:</strong> Transição multipolar • Resiliência institucional • Diplomacia fraterna.</p>
+                <p><strong>Proposições:</strong> Protocolos de desescalada gradual • Redes de think tanks fraternos internacionais.</p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-robot"></i> Tecnologia, IA e Mediação Social</h4>
+                <p><strong>Linhas atuais:</strong> Arquitetura da atenção • Governança algorítmica • Protocolos de IA responsável.</p>
+                <p><strong>Proposições:</strong> Fabricação distribuída de tech • Standards abertos de moderação.</p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-chart-line"></i> Economia, Trabalho e Organizações</h4>
+                <p><strong>Linhas atuais:</strong> Transição pós-automatização • Organizações regenerativas • Economia da reciprocidade.</p>
+                <p><strong>Proposições:</strong> Modelos híbridos de firma fraterna • Incentivos para cooperativas escaláveis.</p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-book"></i> Educação, Cultura e Narrativas</h4>
+                <p><strong>Linhas atuais:</strong> Pedagogia da prudência • Reconstrução narrativa • Neurodiversidade institucional.</p>
+                <p><strong>Proposições:</strong> Currículos graduais de resiliência • Redes de mestres fraternos.</p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-gavel"></i> Instituições, Direito e Governança</h4>
+                <p><strong>Linhas atuais:</strong> Micro-constituições • Separação adaptativa de poderes • Accountability fraterna.</p>
+                <p><strong>Proposições:</strong> Experimentos constitucionais locais • Protocolos anti-populismo.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--bg-secondary); border-radius: 1rem;">
+            <p><strong>Convidados bem-vindos:</strong> Pesquisadores, praticantes e pensadores alinhados aos princípios da Sociedade Fraternidade Fab podem propor exposições ou debates.</p>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SEÇÃO AGENDA & ENCONTROS
+    ======================================== -->
+    <section id="agenda">
+        <h2>Agenda & Encontros</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem;">
+            Encontros iniciais em <strong>Realidade Virtual no metaverso Bigscreen</strong>. Host: <strong>Faboo</strong>.
+        </p>
+        <div class="agenda-list">
+            <div class="agenda-item">
+                <div class="agenda-date">25/04/2026 - 15h (BRT)</div>
+                <div class="agenda-content">
+                    <h4>Lançamento: Princípios da Fraternidade Fab</h4>
+                    <p>Apresentação da missão e formato dos estudos. Aberto a todos os interessados.</p>
+                </div>
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-date">02/05/2026 - 15h (BRT)</div>
+                <div class="agenda-content">
+                    <h4>Nível 1: História do Gradualismo</h4>
+                    <p>Início do FabLab de Estudos. Leitura prévia será enviada aos inscritos.</p>
+                </div>
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-date">TBA</div>
+                <div class="agenda-content">
+                    <h4>Célula Temática: Tecnologia e IA</h4>
+                    <p>Primeira sessão aberta da célula de Tecnologia. Convidados especiais.</p>
+                </div>
+            </div>
+        </div>
+        <div style="background: var(--bg-secondary); padding: 2rem; border-radius: 1rem; margin-top: 3rem;">
+            <h3 style="margin-bottom: 1rem;"><i class="fas fa-vr-cardboard"></i> Orientações para Realidade Virtual</h3>
+            <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <li><strong>Plataforma:</strong> Bigscreen (gratuito)</li>
+                <li><strong>Host:</strong> Faboo#1234 - envie friend request</li>
+                <li><strong>Equipamento:</strong> Meta Quest 2/3 ou PCVR</li>
+                <li><strong>Protocolo:</strong> Microfone sempre ativo, respeito aos tempos de fala</li>
+                <li><strong>Gravação:</strong> Apenas com autorização expressa de todos</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SEÇÃO PARTICIPAR
+    ======================================== -->
+    <section id="participar">
+        <h2>Participar</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem;">
+            Manifeste seu interesse. Serão considerados critérios de legalidade, reputação, conduta ética e afinidade com gradualismo prudente e espírito de fraternidade.
+        </p>
+        <form id="interestForm" class="form-container">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nome">Nome completo *</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="area">Área de interesse principal *</label>
+                <select id="area" name="area" required>
+                    <option value="">Selecione...</option>
+                    <option value="geopolitica">Geopolítica e Ordem Internacional</option>
+                    <option value="tecnologia">Tecnologia, IA e Mediação Social</option>
+                    <option value="economia">Economia, Trabalho e Organizações</option>
+                    <option value="educacao">Educação, Cultura e Narrativas</option>
+                    <option value="instituicoes">Instituições, Direito e Governança</option>
+                    <option value="fablab">FabLab de Estudos (geral)</option>
+                    <option value="outros">Outro (especifique abaixo)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="apresentacao">Breve apresentação *<br><small>(Por que deseja participar? Qual sua experiência relevante?)</small></label>
+                <textarea id="apresentacao" name="apresentacao" required maxlength="1000"></textarea>
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button type="submit" class="btn btn-primary" style="min-width: 200px;">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar manifestação
+                </button>
+                <button type="reset" class="btn btn-secondary" style="min-width: 200px;">
+                    Limpar formulário
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- ========================================
+         JAVASCRIPT - FUNCIONALIDADES
+    ======================================== -->
+    <script>
+        // ========================================
+        // NAVEGAÇÃO SMOOTH SCROLL
+        // ========================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========================================
+        // TOGGLE MODO ESCURO/CLARO
+        // ========================================
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.querySelector('i').className = newTheme === 'dark' ? 
+                'fas fa-sun' : 'fas fa-moon';
+            
+            // Salvar preferência no localStorage
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Carregar tema salvo
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.querySelector('i').className = savedTheme === 'dark' ? 
+            'fas fa-sun' : 'fas fa-moon';
+
+        // ========================================
+        // VALIDAÇÃO E SUBMISSÃO DO FORMULÁRIO
+        // ========================================
+        const form = document.getElementById('interestForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validação básica já feita pelo HTML5
+            if (form.checkValidity()) {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+                
+                // Simular envio (para produção, integrar com EmailJS, Formspree, etc.)
+                alert('✅ Manifestação de interesse enviada com sucesso!\n\n' +
+                      'Você receberá confirmação por e-mail em até 48h.\n\n' +
+                      `Dados recebidos:\n• ${data.nome}\n• ${data.email}\n• ${data.area}\n\n` +
+                      'Obrigado por seu interesse na Sociedade Fraternidade Fab!');
+                
+                form.reset();
+            }
+        });
+
+        // ========================================
+        // ANIMAÇÕES SCROLL
+        // ========================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observar todas as sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // ========================================
+        // HEADER SCROLL EFFECT
+        // ========================================
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            }
+        });
+    </script>
+
+</body>
+</html>
