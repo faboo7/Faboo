@@ -997,9 +997,18 @@
                 scroll-behavior: auto !important;
             }
         }
+          /* Player de música de fundo YouTube */
+  #youtube-player {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    border: none !important;
+  }
     </style>
 </head>
-<body class="loading">
+<body class="loading">     <div id="youtube-player"></div
 
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
@@ -1456,6 +1465,15 @@
 
 <section id="eixos-proposicoes" class="reveal">
     <h2>Eixos e Proposições</h2>
+      /* Player de música de fundo YouTube */
+  #youtube-player {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    border: none !important;
+  }
     <p class="section-subtitle">
         Cinco marcos conceituais que conectam fundamentos, método de laboratório e frentes de ação, com 12 proposições em escala de complexidade crescente.
     </p>
@@ -1958,6 +1976,41 @@
                 });
             }
         })();
+    
+  // Player de música de fundo - YouTube
+  (function() {
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: '_87B2dWt0Xc',
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: '_87B2dWt0Xc',
+          controls: 0,
+          modestbranding: 1
+        },
+        events: {
+          'onReady': function(event) {
+            event.target.playVideo();
+            event.target.setVolume(50);
+          },
+          'onStateChange': function(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+              player.playVideo();
+            }
+          }
+        }
+      });
+    }
+  })();
     </script>
 </body>
 </html>
