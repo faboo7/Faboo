@@ -2012,5 +2012,73 @@
     }
   })();
     </script>
-</body>
+  <!-- CONTROLE DE MÚSICA DE FUNDO -->
+  <div id="music-control-panel" style="position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:Inter,sans-serif;">
+    <div id="music-status" style="background:#1e293b;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;opacity:0;transition:opacity 0.3s;">Música tocando</div>
+    <div style="display:flex;gap:8px;">
+      <button id="music-play-pause" onclick="toggleMusic()" style="width:40px;height:40px;border-radius:50%;border:none;background:#231e4a;color:#fff;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);" title="Play/Pause">●</button>
+      <button id="music-mute" onclick="toggleMute()" style="width:40px;height:40px;border-radius:50%;border:none;background:#231e4a;color:#fff;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);" title="Mudo">🔊</button>
+      <button id="music-volume-up" onclick="volumeUp()" style="width:32px;height:40px;border:none;background:#231e4a;color:#fff;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);" title="Volume +">+</button>
+      <button id="music-volume-down" onclick="volumeDown()" style="width:32px;height:40px;border:none;background:#231e4a;color:#fff;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);" title="Volume -">−</button>
+    </div>
+    <span style="color:rgba(255,255,255,0.6);font-size:10px;">Música</span>
+  </div>
+
+  <script>
+    // Controles do player de música
+    var musicPlaying = true;
+    var musicMuted = false;
+    var musicVolume = 50;
+
+    function toggleMusic() {
+      if (!player) return;
+      if (musicPlaying) {
+        player.pauseVideo();
+        document.getElementById('music-play-pause').innerHTML = '▶';
+        document.getElementById('music-status').textContent = 'Música pausada';
+      } else {
+        player.playVideo();
+        document.getElementById('music-play-pause').innerHTML = '❚❚';
+        document.getElementById('music-status').textContent = 'Música tocando';
+      }
+      musicPlaying = !musicPlaying;
+      showMusicStatus();
+    }
+
+    function toggleMute() {
+      if (!player) return;
+      musicMuted = !musicMuted;
+      player.setVolume(musicMuted ? 0 : musicVolume);
+      document.getElementById('music-mute').innerHTML = musicMuted ? '🔇' : '🔊';
+      document.getElementById('music-status').textContent = musicMuted ? 'Música em mudo' : 'Música tocando';
+      showMusicStatus();
+    }
+
+    function volumeUp() {
+      if (!player) return;
+      musicVolume = Math.min(100, musicVolume + 10);
+      player.setVolume(musicVolume);
+      document.getElementById('music-mute').innerHTML = '🔊';
+      musicMuted = false;
+      document.getElementById('music-status').textContent = 'Volume: ' + musicVolume + '%';
+      showMusicStatus();
+    }
+
+    function volumeDown() {
+      if (!player) return;
+      musicVolume = Math.max(0, musicVolume - 10);
+      player.setVolume(musicVolume);
+      musicMuted = false;
+      document.getElementById('music-mute').innerHTML = '🔊';
+      document.getElementById('music-status').textContent = 'Volume: ' + musicVolume + '%';
+      showMusicStatus();
+    }
+
+    function showMusicStatus() {
+      var status = document.getElementById('music-status');
+      status.style.opacity = '1';
+      setTimeout(function() { status.style.opacity = '0'; }, 2000);
+    }
+  </script>
+            </body>
 </html>
