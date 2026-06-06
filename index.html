@@ -1006,9 +1006,162 @@
     height: 0 !important;
     border: none !important;
   }
+/* ========================================
+        PACTO DE SOBERANIA COGNITIVA E LEGALIDADE
+        Gateway obrigatorio para Agenda/Participar
+        ======================================== */
+        :root {
+          --gate-overlay: rgba(8, 15, 28, 0.82);
+          --gate-panel: color-mix(in srgb, var(--bg-card) 92%, #09111d 8%);
+          --gate-panel-2: color-mix(in srgb, var(--bg-secondary) 88%, #09111d 12%);
+        }
+        .gate-open { overflow: hidden; }
+        .gate-modal {
+          position: fixed; inset: 0; z-index: 4000;
+          display: grid; place-items: center; padding: 1.25rem;
+          background: var(--gate-overlay); backdrop-filter: blur(16px);
+          opacity: 0; visibility: hidden; pointer-events: none;
+          transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+        .gate-modal.open { opacity: 1; visibility: visible; pointer-events: auto; }
+        .gate-dialog {
+          width: min(100%, 860px); max-height: min(90vh, 920px);
+          overflow: auto;
+          background: linear-gradient(180deg, var(--gate-panel), var(--gate-panel-2));
+          color: var(--text-primary);
+          border: 1px solid var(--border-color); border-radius: 1.4rem;
+          box-shadow: 0 30px 80px rgba(0,0,0,.38); padding: 1.5rem;
+        }
+        .gate-topbar { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; margin-bottom:1.25rem; }
+        .gate-kicker {
+          display:inline-flex; align-items:center; gap:.5rem;
+          padding:.45rem .8rem; border-radius:999px;
+          background: color-mix(in srgb, var(--primary-color) 12%, transparent);
+          color: var(--primary-color);
+          border: 1px solid color-mix(in srgb, var(--primary-color) 22%, var(--border-color));
+          font-size:.92rem; font-weight:700; letter-spacing:.01em;
+        }
+        .gate-title { font-size: clamp(2rem, 4vw, 3.25rem); line-height:1.06; margin:.8rem 0 1rem; max-width: 14ch; }
+        .gate-intro { display:grid; grid-template-columns: 1.2fr .8fr; gap: 1rem; margin-bottom: 1.2rem; }
+        .gate-copy, .gate-sidecard, .gate-terms, .gate-actions {
+          background: color-mix(in srgb, var(--bg-card) 92%, transparent);
+          border: 1px solid var(--border-color); border-radius: 1rem; padding: 1.15rem;
+        }
+        .gate-copy p + p { margin-top: .95rem; }
+        .gate-sidecard ul { list-style:none; display:grid; gap:.75rem; margin-top:.8rem; }
+        .gate-sidecard li { display:flex; gap:.75rem; align-items:flex-start; color: var(--text-secondary); }
+        .gate-sidecard i { color: var(--accent-color); margin-top:.15rem; }
+        .gate-terms h3, .gate-actions h3 { margin-bottom: .75rem; color: var(--primary-color); }
+        .gate-checklist { display:grid; gap:.9rem; }
+        .gate-check {
+          display:grid; grid-template-columns: 1.2rem 1fr; gap:.9rem; align-items:flex-start;
+          padding: 1rem; border-radius: .95rem; border:1px solid var(--border-color);
+          background: color-mix(in srgb, var(--bg-secondary) 72%, var(--bg-card) 28%);
+        }
+        .gate-check input { margin-top:.22rem; inline-size:1.1rem; block-size:1.1rem; accent-color: var(--primary-color); }
+        .gate-check strong { display:block; margin-bottom:.3rem; color: var(--text-primary); }
+        .gate-check span { color: var(--text-secondary); }
+        .gate-status { min-height: 1.3rem; color: var(--text-secondary); font-size: .95rem; }
+        .gate-buttons { display:flex; gap:.9rem; flex-wrap:wrap; margin-top:1rem; }
+        .gate-enter, .gate-leave {
+          min-height: 48px; border-radius: .9rem; padding: .95rem 1.2rem; font-weight: 700;
+          display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+          border: 1px solid var(--border-color);
+        }
+        .gate-enter { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+        .gate-enter[disabled] { opacity:.45; cursor:not-allowed; }
+        .gate-enter:not([disabled]):hover { background: var(--primary-color-2); border-color: var(--primary-color-2); }
+        .gate-leave { background: transparent; color: var(--text-primary); }
+        .gate-leave:hover { background: var(--bg-secondary); }
+        .gate-protected-note {
+          margin-top: 1rem; padding: .95rem 1rem; border-radius: .9rem;
+          border:1px dashed var(--border-color); color: var(--text-secondary);
+          background: color-mix(in srgb, var(--accent-color) 8%, transparent);
+        }
+        .is-guarded { position: relative; }
+        .is-guarded::after {
+          content:'Acesso condicionado ao Pacto de Entrada';
+          position:absolute; top:-.75rem; right:0; font-size:.78rem;
+          padding:.3rem .55rem; border-radius:999px;
+          background: color-mix(in srgb, var(--accent-color) 16%, var(--bg-card));
+          color: var(--text-primary); border:1px solid var(--border-color);
+        }
+        @media (max-width: 860px) {
+          .gate-intro { grid-template-columns: 1fr; }
+          .gate-dialog { padding: 1rem; }
+          .gate-title { max-width: none; }
+        }
     </style>
 </head>
-<body class="loading">     <div id="youtube-player"></div
+<body class="loading">
+    <div class="gate-modal" id="entryGate" aria-hidden="true">
+  <div class="gate-dialog"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="gateTitle"
+       aria-describedby="gateIntro">
+    <div class="gate-topbar">
+      <div>
+        <span class="gate-kicker">
+          <i class="fas fa-shield-halved"></i>
+          Pacto de Soberania Cognitiva e Legalidade
+        </span>
+        <h2 class="gate-title" id="gateTitle">
+          Antes do acesso, e preciso entrar com consciencia.
+        </h2>
+      </div>
+    </div>
+    <div class="gate-intro">
+      <div class="gate-copy" id="gateIntro">
+        <p>Seja bem-vindo ao FabLab Proposicoes. Este laboratorio existe para estudo rigoroso, debate filosofico e elaboracao gradual de proposicoes diante de problemas reais. Aqui ha escuta, civilidade e apoio entre pares, mas nao ha promessa de solucao magica, tutela subjetiva ou terceirizacao da responsabilidade pessoal.</p>
+        <p>Nos encontros em metaverso e Bigscreen, a liberdade de participacao caminha junto com deveres claros. O ingresso exige maioridade, capacidade para assumir obrigacoes civis, compreensao dos limites do espaco e aceitacao da etica de convivencia que sustenta o grupo.</p>
+        <p>Este aceite nao e uma formalidade fria. E o chao de fabrica do laboratorio: um pacto publico de prudencia, legalidade e soberania cognitiva, pelo qual cada participante reconhece o carater filosofico do ambiente e responde por seus proprios atos e decisoes.</p>
+      </div>
+      <aside class="gate-sidecard">
+        <h3>Sentido do acesso</h3>
+        <ul>
+          <li><i class="fas fa-circle-check"></i><span>Espaco de estudo, debate e formulacao de proposicoes graduais.</span></li>
+          <li><i class="fas fa-circle-check"></i><span>Sem vinculo terapeutico, clinico ou de aconselhamento profissional.</span></li>
+          <li><i class="fas fa-circle-check"></i><span>Consentimento expresso antes de liberar Agenda e Participar.</span></li>
+        </ul>
+      </aside>
+    </div>
+    <div class="gate-terms">
+      <h3>Leitura e aceite obrigatorio</h3>
+      <div class="gate-checklist">
+        <label class="gate-check">
+          <input type="checkbox" class="gate-consent">
+          <span><strong>Maioridade legal.</strong> Declaro, sob minha responsabilidade, que possuo 18 anos completos ou mais, conforme a legislacao do Brasil ou do pais a partir do qual realizo este acesso.</span>
+        </label>
+        <label class="gate-check">
+          <input type="checkbox" class="gate-consent">
+          <span><strong>Capacidade civil e ausencia de impedimentos.</strong> Declaro estar em pleno gozo de minhas faculdades para compreender este aceite e assumir obrigacoes civis, sem impedimento legal que invalide minha manifestacao de vontade.</span>
+        </label>
+        <label class="gate-check">
+          <input type="checkbox" class="gate-consent">
+          <span><strong>Ciencia de nao-vinculo terapeutico.</strong> Reconheco que este ambiente se destina a debate filosofico, estudo e convivencia intelectual, nao constituindo diagnostico, tratamento, aconselhamento clinico ou vinculo terapeutico; por isso, assumo integral responsabilidade por decisoes pessoais tomadas a partir de minhas interpretacoes e interacoes.</span>
+        </label>
+        <label class="gate-check">
+          <input type="checkbox" class="gate-consent">
+          <span><strong>Aceite das regras de convivencia.</strong> Concordo que, ao ingressar e ao permanecer nos encontros do FabLab em ambientes digitais, submeto-me a etica de fala, respeito, civilidade intelectual e responsabilidade pessoal exigida pelo grupo, respondendo por meus proprios atos.</span>
+        </label>
+      </div>
+    </div>
+    <div class="gate-actions">
+      <h3>Liberacao de acesso</h3>
+      <p class="gate-status" id="gateStatus">Marque as quatro declaracoes para liberar os links de Agenda e Participar.</p>
+      <div class="gate-buttons">
+        <button type="button" class="gate-enter" id="gateAccept" disabled>
+          <i class="fas fa-door-open"></i> Li e assumo este pacto
+        </button>
+        <button type="button" class="gate-leave" id="gateDecline">
+          <i class="fas fa-arrow-left"></i> Nao concordo, desejo sair
+        </button>
+      </div>
+      <p class="gate-protected-note">Os links de entrada para reunioes e areas de participacao ficam bloqueados ate a conclusao deste aceite.</p>
+    </div>
+  </div>
+</div><div id="youtube-player"></div
 
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
@@ -2169,5 +2322,66 @@
             showMusicStatus();
         }
   </script>
+<script>
+(function(){
+  const gate = document.getElementById('entryGate');
+  if (!gate) return;
+  const protectedLinks = Array.from(
+    document.querySelectorAll('a[href="#agenda"], a[href="#participar"]')
+  );
+  const protectedSections = ['agenda','participar']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  const checks = Array.from(document.querySelectorAll('.gate-consent'));
+  const acceptBtn = document.getElementById('gateAccept');
+  const declineBtn = document.getElementById('gateDecline');
+  const status = document.getElementById('gateStatus');
+  let gateAccepted = false;
+  function syncState(){
+    const total = checks.filter(c => c.checked).length;
+    const ready = total === checks.length;
+    acceptBtn.disabled = !ready;
+    status.textContent = ready
+      ? 'Tudo certo. O acesso esta pronto para ser liberado.'
+      : 'Faltam ' + (checks.length - total) + ' declaracoes obrigatorias para prosseguir.';
+  }
+  function openGate(targetId){
+    gate.classList.add('open');
+    gate.setAttribute('aria-hidden','false');
+    document.body.classList.add('gate-open');
+    gate.dataset.target = targetId || '';
+    syncState();
+  }
+  function closeGate(){
+    gate.classList.remove('open');
+    gate.setAttribute('aria-hidden','true');
+    document.body.classList.remove('gate-open');
+  }
+  function unlockProtectedAreas(){
+    gateAccepted = true;
+    protectedLinks.forEach(link => link.classList.remove('is-guarded'));
+    protectedSections.forEach(section => section.classList.remove('is-guarded'));
+    closeGate();
+    const targetId = gate.dataset.target || 'participar';
+    const target = document.getElementById(targetId);
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  protectedLinks.forEach(link => {
+    link.classList.add('is-guarded');
+    link.addEventListener('click', function(ev){
+      if (gateAccepted) return;
+      ev.preventDefault();
+      openGate((this.getAttribute('href') || '').replace('#',''));
+    });
+  });
+  protectedSections.forEach(section => section.classList.add('is-guarded'));
+  checks.forEach(c => c.addEventListener('change', syncState));
+  acceptBtn.addEventListener('click', unlockProtectedAreas);
+  declineBtn.addEventListener('click', function(){ window.location.href = 'about:blank'; });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && gate.classList.contains('open') && !gateAccepted) e.preventDefault();
+  });
+})();
+</script>
             </body>
 </html>
