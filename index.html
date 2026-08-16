@@ -1682,22 +1682,22 @@
     <div class="proposicoes-wrap reveal">
         <div class="proposicoes-tabs" role="tablist" aria-label="Níveis de proposições">
             <button class="proposicao-tab" type="button" role="tab" aria-selected="true" aria-controls="nivel-1" id="tab-nivel-1" onclick="document.querySelectorAll('#eixos-proposicoes .proposicao-tab').forEach(btn=>btn.setAttribute('aria-selected','false')); this.setAttribute('aria-selected','true'); document.querySelectorAll('#eixos-proposicoes .proposicao-panel').forEach(panel=>panel.classList.remove('active')); document.getElementById('nivel-1').classList.add('active');">
-                Nível 1 · Base
+                <span data-en="Level 1 · Base">Nível 1 · Base</span>
             </button>
 
             <button class="proposicao-tab" type="button" role="tab" aria-selected="false" aria-controls="nivel-2" id="tab-nivel-2" onclick="document.querySelectorAll('#eixos-proposicoes .proposicao-tab').forEach(btn=>btn.setAttribute('aria-selected','false')); this.setAttribute('aria-selected','true'); document.querySelectorAll('#eixos-proposicoes .proposicao-panel').forEach(panel=>panel.classList.remove('active')); document.getElementById('nivel-2').classList.add('active');">
-                Nível 2 · Mediações
+                <span data-en="Level 2 · Mediations">Nível 2 · Mediações</span>
             </button>
 
             <button class="proposicao-tab" type="button" role="tab" aria-selected="false" aria-controls="nivel-3" id="tab-nivel-3" onclick="document.querySelectorAll('#eixos-proposicoes .proposicao-tab').forEach(btn=>btn.setAttribute('aria-selected','false')); this.setAttribute('aria-selected','true'); document.querySelectorAll('#eixos-proposicoes .proposicao-panel').forEach(panel=>panel.classList.remove('active')); document.getElementById('nivel-3').classList.add('active');">
-                Nível 3 · Sistemas
+                <span data-en="Level 3 · Systems">Nível 3 · Sistemas</span>
             </button>
         </div>
 
         <div id="nivel-1" class="proposicao-panel active dark-mode-glow" role="tabpanel" aria-labelledby="tab-nivel-1">
             <div class="proposicao-panel-header">
-                <h3>Nível 1 - Proposições de base</h3>
-                <span>Proposições 1 a 4</span>
+                <h3 data-en="Level 1 - Base propositions">Nível 1 - Proposições de base</h3>
+                <span data-en="Propositions 1 to 4">Proposições 1 a 4</span>
             </div>
             <ol class="proposicoes-list">
                 <li data-num="1">Toda proposição deve ser formulada em linguagem pública, inteligível e verificável.</li>
@@ -1709,8 +1709,8 @@
 
         <div id="nivel-2" class="proposicao-panel dark-mode-glow" role="tabpanel" aria-labelledby="tab-nivel-2">
             <div class="proposicao-panel-header">
-                <h3>Nível 2 - Mediações institucionais e tecnológicas</h3>
-                <span>Proposições 5 a 8</span>
+                <h3 data-en="Level 2 - Institutional and technological mediations">Nível 2 - Mediações institucionais e tecnológicas</h3>
+                <span data-en="Propositions 5 to 8">Proposições 5 a 8</span>
             </div>
             <ol class="proposicoes-list">
                 <li data-num="5">Proposições em política devem combinar reforma incremental com ancoragem legal explícita.</li>
@@ -1722,8 +1722,8 @@
 
         <div id="nivel-3" class="proposicao-panel dark-mode-glow" role="tabpanel" aria-labelledby="tab-nivel-3">
             <div class="proposicao-panel-header">
-                <h3>Nível 3 - Alta complexidade e sistemas</h3>
-                <span>Proposições 9 a 12</span>
+                <h3 data-en="Level 3 - High complexity and systems">Nível 3 - Alta complexidade e sistemas</h3>
+                <span data-en="Propositions 9 to 12">Proposições 9 a 12</span>
             </div>
             <ol class="proposicoes-list">
                 <li data-num="9">Cada proposição complexa deve articular, no mínimo, um eixo conceitual e duas frentes de ação.</li>
@@ -1736,10 +1736,10 @@
 </section>
 
     <section id="aplicacoes" class="reveal">
-        <h2>Aplicações</h2>
+        <h2 data-en="Applications">Aplicações</h2>
         <div class="cards-grid">
             <div class="card dark-mode-glow">
-                <h4><i class="fas fa-landmark"></i> Política e instituições</h4>
+                <h4><i class="fas fa-landmark"></i> <span data-en="Politics and institutions">Política e instituições</span></h4>
                 <ul>
                     <li>Reformas institucionais graduais</li>
                     <li>Governança baseada em confiança pública</li>
@@ -1747,7 +1747,7 @@
                 </ul>
             </div>
             <div class="card dark-mode-glow">
-                <h4><i class="fas fa-brain"></i> Cultura e subjetividade</h4>
+                <h4><i class="fas fa-brain"></i> <span data-en="Culture and subjectivity">Cultura e subjetividade</span></h4>
                 <ul>
                     <li>Crítica à captura afetiva por plataformas</li>
                     <li>Formação de consciência cívica</li>
@@ -1755,7 +1755,7 @@
                 </ul>
             </div>
             <div class="card dark-mode-glow">
-                <h4><i class="fas fa-robot"></i> Tecnologia e IA</h4>
+                <h4><i class="fas fa-robot"></i> <span data-en="Technology and AI">Tecnologia e IA</span></h4>
                 <ul>
                     <li>Mediação algorítmica e poder</li>
                     <li>Ética aplicada à automação</li>
@@ -1763,7 +1763,7 @@
                 </ul>
             </div>
             <div class="card dark-mode-glow">
-                <h4><i class="fas fa-seedling"></i> Educação e formação</h4>
+                <h4><i class="fas fa-seedling"></i> <span data-en="Education and training">Educação e formação</span></h4>
                 <ul>
                     <li>Aprendizagem orientada por problemas reais</li>
                     <li>Formação crítica e interdisciplinar</li>
@@ -1774,12 +1774,12 @@
     </section>
 
     <section id="fablab" class="reveal">
-        <h2>FabLab de Estudos</h2>
+        <h2 data-en="FabLab of Studies">FabLab de Estudos</h2>
         <div class="timeline">
             <div class="timeline-step reveal" data-timeline-step tabindex="0">
                 <div class="step-number">1</div>
                 <div class="step-content dark-mode-glow">
-                    <h3>Mapear problemas</h3>
+                    <h3 data-en="Mapping problems">Mapear problemas</h3>
                     <p>Levantamento dos desafios centrais do presente e das mediações técnicas, políticas e culturais que os estruturam.</p>
                     <div class="step-extra">
                         <p>Esta etapa organiza repertórios, conceitos, fontes e hipóteses de leitura para que o estudo avance com coerência.</p>
@@ -1790,7 +1790,7 @@
             <div class="timeline-step reveal" data-timeline-step tabindex="0">
                 <div class="step-number">2</div>
                 <div class="step-content dark-mode-glow">
-                    <h3>Estudar referências</h3>
+                    <h3 data-en="Studying references">Estudar referências</h3>
                     <p>Leitura de autores, tradições, experiências históricas e pesquisas contemporâneas ligadas aos temas do laboratório.</p>
                     <div class="step-extra">
                         <p>O objetivo é aproximar pensamento filosófico, análise institucional e observação empírica sem perder clareza prática.</p>
@@ -1801,7 +1801,7 @@
             <div class="timeline-step reveal" data-timeline-step tabindex="0">
                 <div class="step-number">3</div>
                 <div class="step-content dark-mode-glow">
-                    <h3>Elaborar proposições</h3>
+                    <h3 data-en="Elaborating propositions">Elaborar proposições</h3>
                     <p>Transformação do estudo em princípios, hipóteses de intervenção e propostas graduais para debate e validação.</p>
                     <div class="step-extra">
                         <p>A proposta precisa ser inteligível, aplicável, prudente e aberta à crítica para não se tornar mera abstração.</p>
@@ -1812,7 +1812,7 @@
             <div class="timeline-step reveal" data-timeline-step tabindex="0">
                 <div class="step-number">4</div>
                 <div class="step-content dark-mode-glow">
-                    <h3>Testar e revisar</h3>
+                    <h3 data-en="Testing and revising">Testar e revisar</h3>
                     <p>Discussão, refinamento e adaptação das ideias com base em viabilidade, legalidade, impacto e aderência social.</p>
                     <div class="step-extra">
                         <p>A revisão contínua permite maturar os projetos, corrigir excessos e manter a fidelidade ao método gradualista.</p>
@@ -1823,22 +1823,21 @@
     </section>
 
     <section id="celulas" class="reveal">
-        <h2>Células Temáticas</h2>
+        <h2 data-en="Thematic Cells">Células Temáticas</h2>
         <div class="cards-grid">
             <div class="card dark-mode-glow">
-                <h4>Célula de estudos políticos</h4>
-                <h2 data-en="Thematic Cells">Células Temáticas</h2>
-            </div>
+                <h4 data-en="Political studies cell">Célula de estudos políticos</h4>
+                </div>
             <div class="card dark-mode-glow">
-                <h4>Célula de tecnologia e IA</h4>
+                <h4 data-en="Technology and AI cell">Célula de tecnologia e IA</h4>
                 <p>Analisa mediações algorítmicas, plataformas, automação, risco sistêmico e impactos sociais da inteligência artificial.</p>
             </div>
             <div class="card dark-mode-glow">
-                <h4>Célula de cultura e formação</h4>
+                <h4 data-en="Culture and education cell">Célula de cultura e formação</h4>
                 <p>Debate educação, subjetividade, linguagem, narrativa pública e práticas de formação orientadas por ética filosófica e responsabilidade.</p>
             </div>
             <div class="card dark-mode-glow">
-                <h4>Célula de proposições aplicadas</h4>
+                <h4 data-en="Applied propositions cell">Célula de proposições aplicadas</h4>
                 <p>Conecta estudos e diagnósticos a propostas concretas, protótipos institucionais e agendas de implementação gradual.</p>
             </div>
         </div>
